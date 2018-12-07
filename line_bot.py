@@ -15,14 +15,14 @@ from linebot.models import (
     FlexSendMessage, BubbleContainer, ImageComponent, BoxComponent, URIAction,
     TextComponent, SpacerComponent, IconComponent, ButtonComponent, SeparatorComponent
 )
-#from PIL import Image
+from PIL import Image
 from io import BytesIO
-#import numpy as np
+import numpy as np
 from time import strftime
 from subprocess import run
 import pyimgur
 from test import inference
-# import cv2
+import cv2
 
 app = Flask(__name__)
 CLIENT_ID = '068f642d85cf4ba'
@@ -32,28 +32,6 @@ line_bot_api = LineBotApi(
 handler = WebhookHandler('da2d6f9e4ea684b0141df09cfeb0bb89')
 
 images_collection = {}
-
-help_prompt = FlexSendMessage(alt_text='暫時無法顯示幫助選單，請稍後再試', contents=BubbleContainer(
-    direction='ltr',
-    hero=ImageComponent(
-        url='https://developers.line.biz/media/messaging-api/rich-menu/controller-rich-menu-image-e1734c7d.jpg',
-        size='full',
-        aspect_mode='cover'
-    ),
-    body=BoxComponent(
-        layout='vertical',
-        spacing='sm',
-        contents=[    
-            SpacerComponent(size='sm'),
-            TextComponent(text='拍照或上傳照片即可為您進行評分', size='md',
-                                  color='#999999', margin='md', flex=0),
-            ButtonComponent(style='link', height='sm',
-                            action=CameraAction(label='拍照')),
-            ButtonComponent(style='link', height='sm',
-                            action=CameraRollAction(label='上傳'))
-        ]
-    )
-))
 
 bubble = FlexSendMessage(alt_text="help", contents=BubbleContainer(
     direction='ltr',
@@ -107,7 +85,7 @@ help_prompt = TemplateSendMessage(
     template=CarouselTemplate(
         columns=[
             CarouselColumn(
-                thumbnail_image_url='https://developers.line.biz/media/messaging-api/rich-menu/controller-rich-menu-image-e1734c7d.jpg',
+                thumbnail_image_url='https://i.imgur.com/WAqchIp.jpg',
                 title='幫助選單',
                 text='拍照或上傳照片即可為您進行評分',
                 actions=[
@@ -150,18 +128,17 @@ def callback():
 def handle_message(event):
     message = event.message.text
     reply = None
-    if message == '幫助':
+    if message == '上傳評分':
         reply = help_prompt
     elif message == '測試':
         reply = bubble
-    elif len(message) > 1:
-        if message[0] == '-':
-            run(message[1:].split(' '))
-            return
-        elif message[0] == '+':
-            img_name = message[1:]
-            link = images_collection[img_name]
-            reply = ImageSendMessage(
+    elif len(message) > 1 and message[0] == '-':
+        run(message[1:].split(' '))
+        return
+    elif len(message) > 1 and message[0] == '+':
+        img_name = message[1:]
+        link = images_collection[img_name]
+        reply = ImageSendMessage(
                 original_content_url=link, preview_image_url=link)
     elif message.isdigit():
         reply = StickerSendMessage(package_id='1', sticker_id=message)
@@ -174,25 +151,30 @@ def handle_message(event):
 def handle_image_message(event):
     image = line_bot_api.get_message_content(event.message.id)
     # print(image)
-
-    fileName = strftime('%Y-%m-%d_%H:%M:%S')
-    with open(fileName, 'wb+') as f:
-        for byte in image.iter_content():
-            f.write(byte)
-    img_raw = b''.join(image.iter_content())
-    img = Image.open(BytesIO(img_raw))
-    img_arr = np.array(img)
-    output = inference(img_arr)
-    line_bot_api.reply_message(
-        event.reply_token, TextSendMessage(text=f'Class {output}'))
     try:
-        uploaded = im.upload_image(fileName, title=fileName)
-        images_collection[fileName] = uploaded.link
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(
-            text=f'Successfully uploaded to imgur, link is {uploaded.link}'))
-    except:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(
-            text='Error occurred during uploading to imgur'))
+        '''
+        fileName = strftime('%Y-%m-%d_%H:%M:%S')
+        with open(fileName, 'wb+') as f:
+            for byte in image.iter_content():
+                f.write(byte)
+        '''
+        img_raw = b''.join(image.iter_content())
+        img = Image.open(BytesIO(img_raw))
+        img_arr = np.array(img)
+        print('img_arr', img_arr)
+        output = inference(img_arr)
+        print('output', output)
+        line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(text=f'Class {output}'))
+        
+        #uploaded = im.upload_image(fileName, title=fileName)
+        #images_collection[fileName] = uploaded.link
+        #line_bot_api.reply_message(event.reply_token, TextSendMessage(
+        #    text=f'Successfully uploaded to imgur, link is {uploaded.link}'))
+    except ValueError:
+        print('err')
+    #    line_bot_api.reply_message(event.reply_token, TextSendMessage(
+    #        text='Error occurred during uploading to imgur'))
 
 if __name__ == "__main__":
     app.run(ssl_context=('/etc/nginx/ssl/cert.pem', '/etc/nginx/ssl/cert.key'), port = 8081)
