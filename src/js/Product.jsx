@@ -38,8 +38,22 @@ class Product extends React.Component {
         new Fruit('百香果', 'Class A', '埔里 大平頂', '農夫甲', '好吃'),
         new Fruit('百香果', 'Class B', '埔里 大平頂', '農夫乙', '好吃!'),
         new Fruit('百香果', 'Class C', '埔里 大平頂', '農夫丙', '好吃!!')
+      ],
+      header: [
+        { id: 0, numeric: false, disablePadding: false, label: "水果"},
+        { id: 1, numeric: true, disablePadding: false, label: "等級" },
+        { id: 2, numeric: true, disablePadding: false, label: "產地" },
+        { id: 3, numeric: true, disablePadding: false, label: "生產者" },
+        { id: 4, numeric: true, disablePadding: false, label: "評價" }
       ]
     };
+  }
+
+  selectAllClicked(event) {
+    if (event.target.checked)
+      this.setState(state => ({selected: state.data.map((n, index) => index)}));
+    else
+      this.setState({selected: []});
   }
 
   rowClicked(event, rowID) {
@@ -69,11 +83,14 @@ class Product extends React.Component {
       </AppBar>
       <Paper>
         <Typography variant="h6">Product List</Typography>
-        <EnhancedTableHead order={this.state.order} orderBy={this.state.orderBy} numSelected={this.state.selected.length} rowCount={this.state.data.length}/>
         <Table>
+          <EnhancedTableHead data={this.state.header} order={this.state.order} orderBy={this.state.orderBy} onSortClicked={this.selectAllClicked.bind(this)} numSelected={this.state.selected.length} rowCount={this.state.data.length}/>
           <TableBody>
             {this.state.data.map((fruit, index) => (
               <TableRow key={index} hover onClick={event => this.rowClicked(event, index)}>
+                <TableCell padding="checkbox">
+                  <Checkbox checked={true}/>
+                </TableCell>
                 <TableCell>{fruit.name}</TableCell>
                 <TableCell>{fruit.rank}</TableCell>
                 <TableCell>{fruit.origin}</TableCell>

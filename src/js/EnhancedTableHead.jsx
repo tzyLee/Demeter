@@ -1,8 +1,11 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Checkbox from "@material-ui/core/Checkbox";
+import Tooltip from '@material-ui/core/Tooltip';
 
 class EnhancedTableHead extends React.Component {
   constructor(props) {
@@ -13,15 +16,8 @@ class EnhancedTableHead extends React.Component {
     return event => this.props.onSortClicked(event, property);
   }
 
-  selectAllClicked(event) {
-    if (event.target.checked)
-      this.setState(state => ({selected: state.data.map((n, index) => index)}));
-    else
-      this.setState({selected: []});
-  }
-
   render() {
-    const {order, orderBy, numSelected, rowCount} = this.props;
+    const {data, order, orderBy, numSelected, rowCount} = this.props;
     return (
       <TableHead>
         <TableRow>
@@ -32,7 +28,7 @@ class EnhancedTableHead extends React.Component {
               onChange={this.selectAllClicked}
             />
           </TableCell>
-          {rows.map(row => (
+          {data.map(row => (
             <TableCell key={row.id} numeric={row.numeric}
               padding={row.disablePadding ? "none" : "default"}
               sortDirection={orderBy === row.id ? order : false}>
@@ -50,6 +46,7 @@ class EnhancedTableHead extends React.Component {
   }
   
   EnhancedTableHead.propTypes = {
+    data: PropTypes.array.isRequired,
     numSelected: PropTypes.number.isRequired,
     onSortClicked: PropTypes.func.isRequired,
     order: PropTypes.string.isRequired,
