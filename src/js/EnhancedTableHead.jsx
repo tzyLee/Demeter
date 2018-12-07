@@ -7,17 +7,29 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from "@material-ui/core/Checkbox";
 import Tooltip from '@material-ui/core/Tooltip';
 
+
+const rows = [
+  { id: 0, numeric: false, disablePadding: false, label: "水果"},
+  { id: 1, numeric: false, disablePadding: false, label: "等級" },
+  { id: 2, numeric: false, disablePadding: false, label: "產地" },
+  { id: 3, numeric: false, disablePadding: false, label: "生產者" },
+  { id: 4, numeric: false, disablePadding: false, label: "評價" }
+];
+
 class EnhancedTableHead extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  sortToggle(property) {
-    return event => this.props.onSortClicked(event, property);
-  }
-
   render() {
-    const {data, order, orderBy, numSelected, rowCount} = this.props;
+    const {
+      onSelectAllClick,
+      order,
+      orderBy,
+      numSelected,
+      rowCount
+    } = this.props;
+
     return (
       <TableHead>
         <TableRow>
@@ -25,33 +37,50 @@ class EnhancedTableHead extends React.Component {
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
               checked={numSelected === rowCount}
-              onChange={this.selectAllClicked}
+              onChange={onSelectAllClick}
             />
           </TableCell>
-          {data.map(row => (
-            <TableCell key={row.id} numeric={row.numeric}
-              padding={row.disablePadding ? "none" : "default"}
-              sortDirection={orderBy === row.id ? order : false}>
-              <Tooltip title="Sort" placement={row.numeric ? "bottom-end" : "bottom-start"} enterDelay={300}>
-                <TableSortLabel active={orderBy === row.id} direction={order} onClick={this.sortToggle(row.id)}>
-                  {row.label}
-                </TableSortLabel>
-              </Tooltip>
-            </TableCell>
-          ))}
-          </TableRow>
-        </TableHead>
-      );
-    }
+          {rows.map(row => {
+            return (
+              <TableCell
+                key={row.id}
+                numeric={row.numeric}
+                padding={row.disablePadding ? "none" : "default"}
+                sortDirection={orderBy === row.id ? order : false}
+              >
+                <Tooltip
+                  title="Sort"
+                  placement={row.numeric ? "bottom-end" : "bottom-start"}
+                  enterDelay={300}
+                >
+                  <TableSortLabel
+                    active={orderBy === row.id}
+                    direction={order}
+                    onClick={this.createSortHandler(row.id)}
+                  >
+                    {row.label}
+                  </TableSortLabel>
+                </Tooltip>
+              </TableCell>
+            );
+          }, this)}
+        </TableRow>
+      </TableHead>
+    );
   }
-  
-  EnhancedTableHead.propTypes = {
-    data: PropTypes.array.isRequired,
-    numSelected: PropTypes.number.isRequired,
-    onSortClicked: PropTypes.func.isRequired,
-    order: PropTypes.string.isRequired,
-    orderBy: PropTypes.string.isRequired,
-    rowCount: PropTypes.number.isRequired
-  };
+}
+
+EnhancedTableHead.prototype.createSortHandler = property => event => {
+  this.props.onRequestSort(event, property);
+};
+
+EnhancedTableHead.propTypes = {
+  numSelected: PropTypes.number.isRequired,
+  onRequestSort: PropTypes.func.isRequired,
+  onSelectAllClick: PropTypes.func.isRequired,
+  order: PropTypes.string.isRequired,
+  orderBy: PropTypes.string.isRequired,
+  rowCount: PropTypes.number.isRequired
+};
 
 export default EnhancedTableHead;
