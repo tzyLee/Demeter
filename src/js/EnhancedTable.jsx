@@ -117,7 +117,7 @@ class EnhancedTable extends React.Component {
                 numSelected={selected.length}
                 order={order}
                 orderBy={orderBy}
-                onSelectAllClick={this.handleSelectAllClick}
+                onSelectAllClick={this.handleSelectAllClick.bind(this)}
                 onRequestSort={this.handleRequestSort}
                 rowCount={data.length}
               />
@@ -139,13 +139,7 @@ class EnhancedTable extends React.Component {
                         <TableCell padding="checkbox">
                           <Checkbox checked={isSelected} />
                         </TableCell>
-                        <TableCell component="th" scope="row" padding="none">
-                          {n.name}
-                        </TableCell>
-                        <TableCell numeric>{n.calories}</TableCell>
-                        <TableCell numeric>{n.fat}</TableCell>
-                        <TableCell numeric>{n.carbs}</TableCell>
-                        <TableCell numeric>{n.protein}</TableCell>
+                        {Object.keys(n).map(i => i != "id" && <TableCell>{n[i]}</TableCell>)}
                       </TableRow>
                     );
                   })}

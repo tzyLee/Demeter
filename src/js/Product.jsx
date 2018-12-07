@@ -17,7 +17,8 @@ import EnhancedTable from './EnhancedTable.jsx';
 
 class Fruit {
   constructor(name, rank, origin, farmer, remark) {
-    this.id = ++Fruit.counter || 1;
+    Fruit.counter = ++Fruit.counter || 1;
+    this.id = Fruit.counter;
     this.name = name;
     this.rank = rank;
     this.origin = origin;
