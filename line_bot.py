@@ -21,7 +21,7 @@ from io import BytesIO
 from time import strftime
 from subprocess import run
 import pyimgur
-from test import inference
+# from test import inference
 # import cv2
 
 app = Flask(__name__)
@@ -175,24 +175,24 @@ def handle_image_message(event):
     image = line_bot_api.get_message_content(event.message.id)
     # print(image)
 
-    fileName = strftime('%Y-%m-%d_%H:%M:%S')
-    with open(fileName, 'wb+') as f:
-        for byte in image.iter_content():
-            f.write(byte)
-    img_raw = b''.join(image.iter_content())
-    img = Image.open(BytesIO(img_raw))
-    img_arr = np.array(img)
-    output = inference(img_arr)
+   #  fileName = strftime('%Y-%m-%d_%H:%M:%S')
+   #  with open(fileName, 'wb+') as f:
+   #      for byte in image.iter_content():
+   #          f.write(byte)
+   #  img_raw = b''.join(image.iter_content())
+   #  img = Image.open(BytesIO(img_raw))
+   #  img_arr = np.array(img)
+   #  output = inference(img_arr)
     line_bot_api.reply_message(
-        event.reply_token, TextSendMessage(text=f'Class {output}'))
-    try:
-        uploaded = im.upload_image(fileName, title=fileName)
-        images_collection[fileName] = uploaded.link
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(
-            text=f'Successfully uploaded to imgur, link is {uploaded.link}'))
-    except:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(
-            text='Error occurred during uploading to imgur'))
+        event.reply_token, TextSendMessage(text=f'Class 888'))
+   #  try:
+   #      uploaded = im.upload_image(fileName, title=fileName)
+   #      images_collection[fileName] = uploaded.link
+   #      line_bot_api.reply_message(event.reply_token, TextSendMessage(
+   #          text=f'Successfully uploaded to imgur, link is {uploaded.link}'))
+   #  except:
+   #      line_bot_api.reply_message(event.reply_token, TextSendMessage(
+   #          text='Error occurred during uploading to imgur'))
 
 if __name__ == "__main__":
-    app.run(ssl_context=('/etc/nginx/ssl/cert.pem', '/etc/nginx/ssl/cert.key'), port = 8081)
+    app.run()
