@@ -43,11 +43,11 @@ class EnhancedTable extends React.Component {
         super(props);
         this.state = {
           order: "asc",
-          orderBy: "calories",
+          orderBy: "id",
           selected: [],
           data: this.props.data,
           page: 0,
-          rowsPerPage: 5
+          rowsPerPage: 25
         };
     }
   
@@ -118,7 +118,7 @@ class EnhancedTable extends React.Component {
                 order={order}
                 orderBy={orderBy}
                 onSelectAllClick={this.handleSelectAllClick.bind(this)}
-                onRequestSort={this.handleRequestSort}
+                onRequestSort={this.handleRequestSort.bind(this)}
                 rowCount={data.length}
               />
               <TableBody>
@@ -144,7 +144,7 @@ class EnhancedTable extends React.Component {
                     );
                   })}
                 {emptyRows > 0 && (
-                  <TableRow style={{ height: 49 * emptyRows }}>
+                  <TableRow style={{ height: 60 * emptyRows }}>
                     <TableCell colSpan={6} />
                   </TableRow>
                 )}
@@ -163,8 +163,8 @@ class EnhancedTable extends React.Component {
             nextIconButtonProps={{
               "aria-label": "Next Page"
             }}
-            onChangePage={this.handleChangePage}
-            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+            onChangePage={this.handleChangePage.bind(this)}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage.bind(this)}
           />
         </Paper>
       );

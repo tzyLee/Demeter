@@ -9,11 +9,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 
 const rows = [
-  { id: 0, numeric: false, disablePadding: false, label: "水果"},
-  { id: 1, numeric: false, disablePadding: false, label: "等級" },
-  { id: 2, numeric: false, disablePadding: false, label: "產地" },
-  { id: 3, numeric: false, disablePadding: false, label: "生產者" },
-  { id: 4, numeric: false, disablePadding: false, label: "評價" }
+  { id: "0", numeric: false, disablePadding: false, label: "水果"},
+  { id: "1", numeric: false, disablePadding: false, label: "等級" },
+  { id: "2", numeric: false, disablePadding: false, label: "產地" },
+  { id: "3", numeric: false, disablePadding: false, label: "生產者" },
+  { id: "4", numeric: false, disablePadding: false, label: "評價" }
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -56,7 +56,7 @@ class EnhancedTableHead extends React.Component {
                   <TableSortLabel
                     active={orderBy === row.id}
                     direction={order}
-                    onClick={this.createSortHandler(row.id)}
+                    onClick={this.createSortHandler(row.id).bind(this)}
                   >
                     {row.label}
                   </TableSortLabel>
@@ -70,8 +70,8 @@ class EnhancedTableHead extends React.Component {
   }
 }
 
-EnhancedTableHead.prototype.createSortHandler = property => event => {
-  this.props.onRequestSort(event, property);
+EnhancedTableHead.prototype.createSortHandler = function(property) {
+  return event => this.props.onRequestSort(event, property);
 };
 
 EnhancedTableHead.propTypes = {
