@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://tzylee.github.io/LineBot/",
   "scripts": {
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base build",
     "build": "webpack --config webpack.config.js --mode development",
