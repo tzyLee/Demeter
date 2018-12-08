@@ -81,8 +81,8 @@ classification_helper = FlexSendMessage(
     contents=CarouselContainer(
         contents=[
             generate_column(url='https://i.imgur.com/fZwe7zF.png', title="特級", description="同一品種，成熟適度，果形完整，色澤優良，無病蟲害及其他傷害。"),
-            generate_column(url='https://i.imgur.com/CbZKCx7.png', title="優級", description="同一品種，成熟尚適度，果形尚完整，色澤良好，無嚴重病蟲害及其他傷害"),
-            generate_column(url='https://i.imgur.com/4JzbNUG.png', title="良級", description="品質次於優級品，但有商品價值者。")
+            generate_column(url='https://i.imgur.com/ndUWLAh.png', title="優級", description="同一品種，成熟尚適度，果形尚完整，色澤良好，無嚴重病蟲害及其他傷害"),
+            generate_column(url='https://i.imgur.com/YoKRHdP.png', title="良級", description="品質次於優級品，但有商品價值者。")
         ]
     )
 )
