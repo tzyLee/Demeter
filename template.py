@@ -22,14 +22,17 @@ def score_bubble(CLASS):
    if CLASS == 0:
       title = '良級'
       description = '品質次於優級品，但有商品價值者。'
+      image_url = 'https://i.imgur.com/YoKRHdP.png'
       stars = 1   
    elif CLASS == 1:
       title = '優級'
       description = '同一品種，成熟尚適度，果形尚完整，色澤良好，無嚴重病蟲害及其他傷害。'
+      image_url = 'https://i.imgur.com/ndUWLAh.png'
       stars = 3
    elif CLASS == 2:
       title = '特級'
       description = '同一品種，成熟適度，果形完整，色澤優良，無病蟲害及其他傷害。'
+      image_url = 'https://i.imgur.com/fZwe7zF.png'
       stars = 5
    stars_contents = []
 
@@ -49,7 +52,7 @@ def score_bubble(CLASS):
          ]
       ),
       hero=ImageComponent(
-         url='https://i.imgur.com/UmRYpmh.jpg',
+         url=image_url,
          size='full',
          aspect_ratio='20:13',
          aspect_mode='cover'
