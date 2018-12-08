@@ -54,7 +54,39 @@ class Price extends React.Component {
 
 Fruit.option = {
   filterType: "checkbox",
-  selectableRows: true
+  selectableRows: true,
+  textLabels: {
+    body: {
+      noMatch: "抱歉, 找不到結果",
+      toolTip: "排序",
+    },
+    pagination: {
+      next: "下一頁",
+      previous: "上一頁",
+      rowsPerPage: "每頁列數:",
+    },
+    toolbar: {
+      search: "搜尋",
+      downloadCsv: "下載成CSV",
+      print: "列印",
+      viewColumns: "選擇顯示行",
+      filterTable: "篩選資料",
+    },
+    filter: {
+      all: "全選",
+      title: "篩選",
+      reset: "重設",
+    },
+    viewColumns: {
+      title: "顯示行",
+      titleAria: "顯示/隱藏 行",
+    },
+    selectedRows: {
+      text: "rows(s) selected",
+      delete: "刪除",
+      deleteAria: "刪除所選列",
+    },
+  }
 }
 
 export default Price;
