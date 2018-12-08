@@ -2,18 +2,7 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import EnhancedTableHead from './EnhancedTableHead.jsx';
-import EnhancedTable from './EnhancedTable.jsx';
+import MUIDataTable from "mui-datatables";
 
 class Fruit {
   constructor(name, rank, origin, farmer, remark) {
@@ -32,18 +21,38 @@ class Product extends React.Component {
     super(props);
     this.state = {
       data: [
-        new Fruit('百香果', 'Class A', '埔里 大平頂', '農夫甲', '好吃'),
-        new Fruit('百香果', 'Class B', '埔里 大平頂', '農夫乙', '好吃!'),
-        new Fruit('百香果', 'Class C', '埔里 大平頂', '農夫丙', '好吃!!')
+        ['百香果', 'Class A', '售出', '2018/12/08'],
+        ['百香果', 'Class B', '售出', '2018/12/08'],
+        ['百香果', 'Class C', '代售', '2018/12/08']
+      ],
+      columns: [
+        {name: "水果", option: {filter: true, sort: true}},
+        {name: "等級", option: {filter: true, sort: true}},
+        {name: "狀態", option: {filter: true, sort: true}},
+        {name: "登記日期", option: {filter: true, sort: true}}
       ]
     }
   }
 
   render() {
     return (
-      <EnhancedTable data={this.state.data}/>
+      <React.Fragment>
+        <AppBar position="static" color="primary">
+        <Toolbar>
+          <Typography variant="h6" color="inherit">
+            我的產品
+          </Typography>
+        </Toolbar>
+        </AppBar>
+        <MUIDataTable title={"我的產品"} columns={this.state.columns} data={this.state.data} options={Product.option}/>
+      </React.Fragment>
     );
   }
+}
+
+Product.option = {
+  filterType: "checkbox",
+  selectableRows: true
 }
 
 export default Product;
