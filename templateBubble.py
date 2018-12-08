@@ -18,7 +18,7 @@ def generate_item(item_pair):
 
 
 def generate_bubble(category, title, subtitle, data1, data2, footer):
-    # data2[0]["margin"] = "xxl"
+    data2[0].margin = "xxl"
     return BubbleContainer(
         body=BoxComponent(
             layout="vertical",
