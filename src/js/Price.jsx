@@ -42,11 +42,11 @@ class Price extends React.Component {
         <AppBar position="static" color="primary">
           <Toolbar>
             <Typography variant="h6" color="inherit">
-              價格查詢
+              預約交易
             </Typography>
           </Toolbar>
         </AppBar>
-        <MUIDataTable title={"價格查詢"} columns={this.state.columns} data={this.state.data} options={Fruit.option}/>
+        <MUIDataTable title={"預約交易"} columns={this.state.columns} data={this.state.data} options={Fruit.option}/>
       </React.Fragment>
     );
   }
@@ -74,7 +74,6 @@ Fruit.option = {
       filterTable: "篩選資料",
     },
     filter: {
-      all: "全選",
       title: "篩選",
       reset: "重設",
     },
