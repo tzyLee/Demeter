@@ -13,8 +13,8 @@ def item_value(text):
 def item(key, value):
     return BoxComponent(layout="horizontal", contents=[key, value])
 
-def generate_item(item):
-    return item(item_key(item[0]), item_value(item[1]))
+def generate_item(item_pair):
+    return item(item_key(item_pair[0]), item_value(item_pair[1]))
 
 
 def generate_bubble(category, title, subtitle, data1, data2, footer):
