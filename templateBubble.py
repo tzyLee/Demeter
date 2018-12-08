@@ -52,6 +52,6 @@ def generate_bubble(category, title, subtitle, data1, data2, footer):
     )
 
 price_report = FlexSendMessage(alt_text="報價", contents=generate_bubble("價格查詢", "百香果", "全國平均",
-    map(generate_item, [("上價", "52.7"), ("中價", "24.7"), ("下價", "9.6")]),
+    map(generate_item, [("特級", "52.7"), ("優級", "24.7"), ("良級", "9.6")]),
     list(map(generate_item, [("平均價", "27.3"), ("與前一交易日比較", "+53%"), ("交易量", "657"), ("與前一交易日比較", "-52%")])),
     ("查詢時間", "107/12/08 13:00:37")))
