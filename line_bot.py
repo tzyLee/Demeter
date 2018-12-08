@@ -24,6 +24,7 @@ import pyimgur
 from test import inference
 import cv2
 from template import score_bubble, help_prompt
+from templateBubble import price_report
 
 app = Flask(__name__)
 CLIENT_ID = '068f642d85cf4ba'
@@ -61,7 +62,7 @@ def handle_message(event):
     if message == '上傳評分':
         reply = help_prompt
     elif message == '價格查詢':
-        reply = URIAction()
+        reply = price_report
     #elif len(message) > 1 and message[0] == '-':
     #    run(message[1:].split(' '))
     #    return

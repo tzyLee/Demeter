@@ -40,7 +40,7 @@ def score_bubble(CLASS):
 
    stars_contents.append(TextComponent(text=str(stars), size='sm', color='#999999', margin='md', flex=0))
 
-   bubble=FlexSendMessage(alt_text="評分�", contents=BubbleContainer(
+   bubble=FlexSendMessage(alt_text="評分結果", contents=BubbleContainer(
       direction='ltr',
       header=BoxComponent(
          layout='vertical',
