@@ -24,7 +24,7 @@ import pyimgur
 from test import inference
 import cv2
 from template import score_bubble, help_prompt
-from templateBubble import price_report
+from templateBubble import price_report, classification_helper
 
 app = Flask(__name__)
 CLIENT_ID = '068f642d85cf4ba'
@@ -63,6 +63,8 @@ def handle_message(event):
         reply = help_prompt
     elif message == '價格查詢':
         reply = price_report
+    elif message == '分級撇步':
+        reply = classification_helper
     #elif len(message) > 1 and message[0] == '-':
     #    run(message[1:].split(' '))
     #    return
