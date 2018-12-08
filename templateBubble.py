@@ -65,7 +65,7 @@ def generate_column(url, title, description):
             spacing="sm",
             contents=[
                 TextComponent(text=title, weight="bold", size="xl", wrap=True),
-                TextComponent(text=description, size="xl", wrap=True)
+                TextComponent(text=description, size="md", wrap=True)
             ]
         )
     )
@@ -86,68 +86,3 @@ classification_helper = FlexSendMessage(
         ]
     )
 )
-
-# classification_helper = FlexSendMessage(
-#     alt_text="分類小幫手",
-#     contents=CarouselContainer(
-#         contents=[
-#             BubbleContainer(
-#                 hero=ImageComponent(
-#                     url='https://i.imgur.com/UmRYpmh.jpg',
-#                     size='full',
-#                     aspect_ratio='20:13',
-#                     aspect_mode='cover'
-#                 ),
-#                 body=BoxComponent(
-#                     layout="vertical",
-#                     spacing="sm",
-#                     contents=[
-#                         TextComponent(text="特級", weight="bold", size="xl", wrap=True),
-#                         BoxComponent(layout="baseline", contents=[
-#                             TextComponent(text="同一品種，成熟適度，果形完整，色澤優良，無病蟲害及其他傷害。",
-#                             weight="bold", size="xl", flex=0, wrap=True)
-#                         ])
-#                     ]
-#                 )
-#             ),
-#             BubbleContainer(
-#                 hero=ImageComponent(
-#                     url='https://i.imgur.com/UmRYpmh.jpg',
-#                     size='full',
-#                     aspect_ratio='20:13',
-#                     aspect_mode='cover'
-#                 ),
-#                 body=BoxComponent(
-#                     layout="vertical",
-#                     spacing="sm",
-#                     contents=[
-#                         TextComponent(text="優級", weight="bold", size="xl", wrap=True),
-#                         BoxComponent(layout="baseline", contents=[
-#                             TextComponent(text="同一品種，成熟尚適度，果形尚完整，色澤良好，無嚴重病蟲害及其他傷害",
-#                             weight="bold", size="xl", flex=0, wrap=True)
-#                         ])
-#                     ]
-#                 )
-#             ),
-#             BubbleContainer(
-#                 hero=ImageComponent(
-#                     url='https://i.imgur.com/UmRYpmh.jpg',
-#                     size='full',
-#                     aspect_ratio='20:13',
-#                     aspect_mode='cover'
-#                 ),
-#                 body=BoxComponent(
-#                     layout="vertical",
-#                     spacing="sm",
-#                     contents=[
-#                         TextComponent(text="良級", weight="bold", size="xl", wrap=True),
-#                         BoxComponent(layout="baseline", contents=[
-#                             TextComponent(text="品質次於優級品，但有商品價值者。",
-#                             weight="bold", size="xl", flex=0, wrap=True)
-#                         ])
-#                     ]
-#                 )
-#             )
-#         ]
-#     )
-# )
