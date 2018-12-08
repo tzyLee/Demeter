@@ -21,5 +21,5 @@ quality_evaluator = load_model(model_path)
 
 def inference(img):
    img = prepro_image(img)
-   label = np.argmax(quality_evaluator(img).detach().numpy())
+   label = np.argmax(quality_evaluator(img).detach().cpu().numpy())
    return label
