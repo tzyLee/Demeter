@@ -54,6 +54,7 @@ class Price extends React.Component {
 
 Fruit.option = {
   filterType: "dropdown",
+  responsive: "scroll",
   selectableRows: true,
   textLabels: {
     body: {
