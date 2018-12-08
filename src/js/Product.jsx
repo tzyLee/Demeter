@@ -51,7 +51,8 @@ class Product extends React.Component {
 }
 
 Product.option = {
-  filterType: "checkbox",
+  filterType: "dropdown",
+  responsive: "scroll",
   selectableRows: true,
   textLabels: {
     body: {

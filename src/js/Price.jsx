@@ -53,7 +53,7 @@ class Price extends React.Component {
 }
 
 Fruit.option = {
-  filterType: "checkbox",
+  filterType: "dropdown",
   selectableRows: true,
   textLabels: {
     body: {
