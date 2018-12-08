@@ -52,6 +52,24 @@ def generate_bubble(category, title, subtitle, data1, data2, footer):
         }
     )
 
+def generate_column(url, title, description):
+    return BubbleContainer(
+        hero=ImageComponent(
+            url=url,
+            size='full',
+            aspect_ratio='20:13',
+            aspect_mode='cover'
+        ),
+        body=BoxComponent(
+            layout="vertical",
+            spacing="sm",
+            contents=[
+                TextComponent(text=title, weight="bold", size="xl", wrap=True),
+                TextComponent(text=description, size="xl", wrap=True)
+            ]
+        )
+    )
+
 price_report = FlexSendMessage(alt_text="報價", contents=generate_bubble("價格查詢", "百香果", "全國平均",
     map(generate_item, [("特級", "52.7"), ("優級", "24.7"), ("良級", "9.6")]),
     list(map(generate_item, [("平均價", "27.3"), ("與前一交易日比較", "+53%"), ("交易量", "657"), ("與前一交易日比較", "-52%")])),
@@ -62,63 +80,74 @@ classification_helper = FlexSendMessage(
     alt_text="分類小幫手",
     contents=CarouselContainer(
         contents=[
-            BubbleContainer(
-                hero=ImageComponent(
-                    url='https://i.imgur.com/UmRYpmh.jpg',
-                    size='full',
-                    aspect_ratio='20:13',
-                    aspect_mode='cover'
-                ),
-                body=BoxComponent(
-                    layout="vertical",
-                    spacing="sm",
-                    contents=[
-                        TextComponent(text="特級", weight="bold", size="xl", wrap=True),
-                        BoxComponent(layout="baseline", contents=[
-                            TextComponent(text="同一品種，成熟適度，果形完整，色澤優良，無病蟲害及其他傷害。",
-                            weight="bold", size="xl", flex=0, wrap=True)
-                        ])
-                    ]
-                )
-            ),
-            BubbleContainer(
-                hero=ImageComponent(
-                    url='https://i.imgur.com/UmRYpmh.jpg',
-                    size='full',
-                    aspect_ratio='20:13',
-                    aspect_mode='cover'
-                ),
-                body=BoxComponent(
-                    layout="vertical",
-                    spacing="sm",
-                    contents=[
-                        TextComponent(text="優級", weight="bold", size="xl", wrap=True),
-                        BoxComponent(layout="baseline", contents=[
-                            TextComponent(text="同一品種，成熟尚適度，果形尚完整，色澤良好，無嚴重病蟲害及其他傷害",
-                            weight="bold", size="xl", flex=0, wrap=True)
-                        ])
-                    ]
-                )
-            ),
-            BubbleContainer(
-                hero=ImageComponent(
-                    url='https://i.imgur.com/UmRYpmh.jpg',
-                    size='full',
-                    aspect_ratio='20:13',
-                    aspect_mode='cover'
-                ),
-                body=BoxComponent(
-                    layout="vertical",
-                    spacing="sm",
-                    contents=[
-                        TextComponent(text="良級", weight="bold", size="xl", wrap=True),
-                        BoxComponent(layout="baseline", contents=[
-                            TextComponent(text="品質次於優級品，但有商品價值者。",
-                            weight="bold", size="xl", flex=0, wrap=True)
-                        ])
-                    ]
-                )
-            )
+            generate_column(url='https://i.imgur.com/UmRYpmh.jpg', title="特級", description="同一品種，成熟適度，果形完整，色澤優良，無病蟲害及其他傷害。"),
+            generate_column(url='https://i.imgur.com/UmRYpmh.jpg', title="優級", description="同一品種，成熟尚適度，果形尚完整，色澤良好，無嚴重病蟲害及其他傷害"),
+            generate_column(url='https://i.imgur.com/UmRYpmh.jpg', title="良級", description="品質次於優級品，但有商品價值者。")
         ]
     )
 )
+
+# classification_helper = FlexSendMessage(
+#     alt_text="分類小幫手",
+#     contents=CarouselContainer(
+#         contents=[
+#             BubbleContainer(
+#                 hero=ImageComponent(
+#                     url='https://i.imgur.com/UmRYpmh.jpg',
+#                     size='full',
+#                     aspect_ratio='20:13',
+#                     aspect_mode='cover'
+#                 ),
+#                 body=BoxComponent(
+#                     layout="vertical",
+#                     spacing="sm",
+#                     contents=[
+#                         TextComponent(text="特級", weight="bold", size="xl", wrap=True),
+#                         BoxComponent(layout="baseline", contents=[
+#                             TextComponent(text="同一品種，成熟適度，果形完整，色澤優良，無病蟲害及其他傷害。",
+#                             weight="bold", size="xl", flex=0, wrap=True)
+#                         ])
+#                     ]
+#                 )
+#             ),
+#             BubbleContainer(
+#                 hero=ImageComponent(
+#                     url='https://i.imgur.com/UmRYpmh.jpg',
+#                     size='full',
+#                     aspect_ratio='20:13',
+#                     aspect_mode='cover'
+#                 ),
+#                 body=BoxComponent(
+#                     layout="vertical",
+#                     spacing="sm",
+#                     contents=[
+#                         TextComponent(text="優級", weight="bold", size="xl", wrap=True),
+#                         BoxComponent(layout="baseline", contents=[
+#                             TextComponent(text="同一品種，成熟尚適度，果形尚完整，色澤良好，無嚴重病蟲害及其他傷害",
+#                             weight="bold", size="xl", flex=0, wrap=True)
+#                         ])
+#                     ]
+#                 )
+#             ),
+#             BubbleContainer(
+#                 hero=ImageComponent(
+#                     url='https://i.imgur.com/UmRYpmh.jpg',
+#                     size='full',
+#                     aspect_ratio='20:13',
+#                     aspect_mode='cover'
+#                 ),
+#                 body=BoxComponent(
+#                     layout="vertical",
+#                     spacing="sm",
+#                     contents=[
+#                         TextComponent(text="良級", weight="bold", size="xl", wrap=True),
+#                         BoxComponent(layout="baseline", contents=[
+#                             TextComponent(text="品質次於優級品，但有商品價值者。",
+#                             weight="bold", size="xl", flex=0, wrap=True)
+#                         ])
+#                     ]
+#                 )
+#             )
+#         ]
+#     )
+# )
