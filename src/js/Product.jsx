@@ -21,14 +21,16 @@ class Product extends React.Component {
     super(props);
     this.state = {
       data: [
-        ['百香果', 'Class A', '售出', '2018/12/08'],
-        ['百香果', 'Class B', '售出', '2018/12/08'],
-        ['百香果', 'Class C', '代售', '2018/12/08']
+        ['百香果', 'Class A', '售出', '53', '2018/12/08'],
+        ['百香果', 'Class B', '售出', '42', '2018/12/08'],
+        ['百香果', 'Class B', '預約出價', '41', '2018/12/08'],
+        ['百香果', 'Class C', '待售', '-', '2018/12/08']
       ],
       columns: [
         {name: "水果", option: {filter: true, sort: true}},
         {name: "等級", option: {filter: true, sort: true}},
         {name: "狀態", option: {filter: true, sort: true}},
+        {name: "出價", option: {filter: true, sort: true}},
         {name: "登記日期", option: {filter: true, sort: true}}
       ]
     }
