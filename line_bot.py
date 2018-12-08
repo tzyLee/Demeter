@@ -27,7 +27,6 @@ from template import score_bubble, help_prompt
 
 app = Flask(__name__)
 CLIENT_ID = '068f642d85cf4ba'
-#im = pyimgur.Imgur(CLIENT_ID)
 line_bot_api = LineBotApi(
     'Tgeyf75DpBpNorwq9mDXKWjUs5EgAMfCYpSzvKjUEIwIwOO2kVxoo0Bzj7XnP4VLaHM/JIH5m5qWMVlqizkUA/2YgvOjvYNJDY6+R60Px68gTyjbXURVueaHHt4eIiwlBXp00koWHGqgI3iYCKiYjAdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('da2d6f9e4ea684b0141df09cfeb0bb89')
