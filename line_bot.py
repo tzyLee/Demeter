@@ -36,6 +36,9 @@ handler = WebhookHandler('da2d6f9e4ea684b0141df09cfeb0bb89')
 
 images_collection = {}
 
+def format_float(float):
+   return '{:.2f}'.format(float)
+
 @app.route('/')
 def hello_world():
    return 'Hello World'
@@ -65,7 +68,9 @@ def handle_message(event):
         reply = help_prompt
     elif message == '價格查詢':
         query_time = check_output(["python3", "scrape.py"])
-        data = np.loadtxt('scraped.txt')
+        data = np.loadtxt('scraped.txt').tolist()
+        data = list(map(format_float, data))
+        print(data, query_time)
         price_report = generate_report(data[:3], data[3:], query_time.decode('ascii').strip())
         reply = price_report
     elif message == '分級撇步':
