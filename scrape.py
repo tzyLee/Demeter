@@ -2,12 +2,15 @@ import scrapy
 from scrapy.crawler import CrawlerProcess
 import re
 import numpy as np
+from time import strftime
+import datetime as d
+import locale
+locale.setlocale( locale.LC_ALL, 'en_US.UTF-8' ) 
 
 class HTMLTableSaver:
     signedNumber = re.compile(r'([+-]?) *(\d+)$')
-    def __init__(self, output):
+    def __init__(self):
         self.result = []
-        self.output = output
 
     def feed(self, data):
         self.result.append(data)
@@ -17,14 +20,10 @@ class HTMLTableSaver:
         temp = []
         for i in range(numOfMarket):
             temp.append(list(map(HTMLTableSaver.parseNumber, self.result[2][14+9*i:21+9*i]))) # replace 14 with 12 if want to keep first two col
-        temp = np.nanmean(np.array(temp), axis=0)
+        temp = np.nanmean(np.array(temp, dtype=np.float), axis=0)
+        print(self.result[1][3]) #output to stdout
         self.result[2][2:5] = ['特級', '優級', '良級']
-        self.data = {
-            '查詢時間': self.result[1][3],
-            # 'headers': self.result[2][2:9],
-            'data': temp.tolist()
-        }
-        self.output(self)
+        np.savetxt('scraped.txt', temp)
     
     @staticmethod
     def parseNumber(string):
@@ -33,12 +32,12 @@ class HTMLTableSaver:
             try:
                 if string.strip() == '-':
                     string = 'nan'
-                return float(string)
+                return locale.atof(string)
             except ValueError:
                 return string
         elif result[1] == '-':
-            return -float(result[2])
-        return float(result[2])
+            return -locale.atof(result[2])
+        return locale.atof(result[2])
 
 
 
@@ -79,7 +78,7 @@ class ViewStateSpider(scrapy.Spider):
         )
 
     def parse_results(self, response):
-        parser = HTMLTableSaver(DataScraper.logger)
+        parser = HTMLTableSaver()
         for quote in response.css("div#ctl00_contentPlaceHolder_panel > table").extract():
             sel = scrapy.Selector(text=quote)
             parser.feed(list(filter(bool, (j.strip() for i in sel.xpath('string(.)').extract() for j in i.split('\r\n') if not i.isspace()))))
@@ -89,14 +88,14 @@ class ViewStateSpider(scrapy.Spider):
 
 class DataScraper:
     def __call__(self):
+        today = d.date.today()
+        today = today.replace(year=today.year-1911)
+        formdata["ctl00$contentPlaceHolder$txtSTransDate"] = today.strftime('%Y/%m/%d')
+        formdata["ctl00$contentPlaceHolder$txtETransDate"] = (today+d.timedelta(days=1)).strftime('%Y/%m/%d')
         process = CrawlerProcess(
             {'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'})
         process.crawl(ViewStateSpider)
         process.start()  # the script will block here until the crawling is finished
-
-    @staticmethod
-    def logger(tableSaverSelf):
-        DataScraper.tableSaverSelf = tableSaverSelf
 
 
 if __name__ == '__main__':
