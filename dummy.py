@@ -3,7 +3,7 @@ from time import sleep
 def main():
     while True:
         print('.')
-        sleep(60*2)
+        sleep(10)
 
 
 if __name__ == '__main__':

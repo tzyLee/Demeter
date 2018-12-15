@@ -65,7 +65,7 @@ def handle_message(event):
         reply = help_prompt
     elif message == '價格查詢':
         query_time = check_output(["python3", "scrape.py"])
-        data = np.loadtxt('scrape.txt')
+        data = np.loadtxt('scraped.txt')
         price_report = generate_report(data[:3], data[3:], query_time.decode('ascii').strip())
         reply = price_report
     elif message == '分級撇步':
