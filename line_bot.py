@@ -70,7 +70,6 @@ def handle_message(event):
         query_time = check_output(["python3", "scrape.py"])
         data = np.loadtxt('scraped.txt').tolist()
         data = list(map(format_float, data))
-        print(data, query_time)
         price_report = generate_report(data[:3], data[3:], query_time.decode('ascii').strip())
         reply = price_report
     elif message == '分級撇步':
