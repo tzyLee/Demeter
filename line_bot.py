@@ -24,7 +24,9 @@ import pyimgur
 from test import inference
 import cv2
 from template import score_bubble, help_prompt
-from templateBubble import price_report, classification_helper
+from templateBubble import generate_report, classification_helper
+from scrape import DataScraper
+price_report = None
 
 app = Flask(__name__)
 CLIENT_ID = '068f642d85cf4ba'
@@ -62,6 +64,10 @@ def handle_message(event):
     if message == '上傳評分':
         reply = help_prompt
     elif message == '價格查詢':
+        ds = DataScraper()
+        ds()
+        data = DataScraper.tableSaverSelf.data
+        price_report = generate_report(data['data'][:3], data['data'][3:], data['查詢時間'])
         reply = price_report
     elif message == '分級撇步':
         reply = classification_helper
