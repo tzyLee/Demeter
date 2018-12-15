@@ -73,7 +73,7 @@ def generate_column(url, title, description):
 def generate_report(price, misc, time):
     return FlexSendMessage(alt_text="報價", contents=generate_bubble("價格查詢", "百香果", "全國平均",
         map(generate_item, list(zip(("特級", "優級", "良級"), price))),
-        list(map(generate_item, list(zip(("平均價(元/公斤)", "與前一交易日比較%", "交易量, "與前一交易日比較"), misc)))),
+        list(map(generate_item, list(zip(("平均價(元/公斤)", "與前一交易日比較%", "交易量(公斤)", "與前一交易日比較％"), misc)))),
         ("查詢時間", time)))
 
 
